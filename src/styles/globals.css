@@ -488,3 +488,9 @@ p {
 .horizontal-scroll-container::-webkit-scrollbar {
   display: none;
 }
+
+@media (min-width: 1024px) {
+  * {
+    cursor: none !important;
+  }
+}
