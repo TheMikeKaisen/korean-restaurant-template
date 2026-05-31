@@ -5,6 +5,8 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScrollProvider } from '@/components/layout/SmoothScrollProvider'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
+import { LoadingScreen } from '@/components/ui/LoadingScreen'
+import { CustomCursor } from '@/components/ui/CustomCursor'
 
 interface SlugLayoutProps {
   children: React.ReactNode
@@ -14,11 +16,15 @@ interface SlugLayoutProps {
 export default async function SlugLayout({ children, params }: SlugLayoutProps) {
   const { slug } = await params
   const config = getConfig(slug)
-
   if (!config) notFound()
 
   return (
     <RestaurantProvider config={config}>
+      <LoadingScreen
+        restaurantName={config.identity.name}
+        koreanName={config.identity.koreanName}
+      />
+      <CustomCursor />
       <SmoothScrollProvider>
         <ScrollProgress />
         <Navbar />
@@ -28,11 +34,3 @@ export default async function SlugLayout({ children, params }: SlugLayoutProps) 
     </RestaurantProvider>
   )
 }
-
-
-
-
-
-
-
-
