@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
 import { ABOUT_IMAGES } from '@/lib/utils'
+import { ParallaxImageContainer } from '@/components/animations/ParallaxLayer'
 
 const stats = [
   { value: '50+', label: 'Authentic Dishes', korean: '메뉴' },
@@ -163,18 +164,19 @@ export function AboutSection() {
               className="relative z-10 overflow-hidden"
               style={{ borderRadius: '2px' }}
             >
-              <motion.div style={{ y: imageY }} className="relative h-[500px] lg:h-[640px]">
+              <ParallaxImageContainer
+                speed={-0.12}
+                className="relative h-[500px] lg:h-[640px]"
+              >
                 <Image
                   src={ABOUT_IMAGES.restaurant.local || ABOUT_IMAGES.restaurant.fallback}
                   alt="Gangnam Kitchen interior"
-                  fill
-                  quality={85}
+                  fill quality={85}
                   sizes="(max-width: 1024px) 100vw, 45vw"
                   className="object-cover"
                 />
-                {/* Warm overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal-800/30 via-transparent to-transparent" />
-              </motion.div>
+              </ParallaxImageContainer>
             </motion.div>
 
             {/* Floating glass card — bottom right of image */}
@@ -226,14 +228,13 @@ export function AboutSection() {
                 borderRadius: '2px',
               }}
             >
-              <Image
-                src={ABOUT_IMAGES.chef.local || ABOUT_IMAGES.chef.fallback}
-                alt="Our chef"
-                fill
-                quality={80}
-                sizes="200px"
-                className="object-cover"
-              />
+              <ParallaxImageContainer speed={0.08} className="absolute inset-0">
+                <Image
+                  src={ABOUT_IMAGES.chef.local || ABOUT_IMAGES.chef.fallback}
+                  alt="Our chef"
+                  fill quality={80} sizes="200px" className="object-cover"
+                />
+              </ParallaxImageContainer>
             </motion.div>
           </div>
 

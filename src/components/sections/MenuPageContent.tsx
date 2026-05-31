@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { ChevronRight, Leaf, Flame } from 'lucide-react'
 import { useRestaurant } from '@/context/RestaurantContext'
 import type { RestaurantDish } from '@/types/restaurant'
+import { ScatterGrid } from '@/components/animations/ScatterTransition'
 
 const categories = [
   { id: 'all', label: 'All', korean: '전체' },
@@ -248,52 +249,16 @@ export function MenuPageContent() {
       {/* ── Menu list ─────────────────────────────────────────────────── */}
       <div className="px-6 lg:px-16 xl:px-24 max-w-[1400px] mx-auto py-12 lg:py-16">
         <div ref={menuRef}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Count + label */}
-              <div className="flex items-center gap-4 mb-8">
-                <span
-                  className="text-[0.65rem] tracking-[0.25em] uppercase text-charcoal-400"
-                  style={{ fontFamily: 'var(--font-outfit)' }}
-                >
-                  {filtered.length} dishes
-                </span>
-                <span className="w-8 h-px bg-charcoal-200 block" />
-                {activeCategory !== 'all' && (
-                  <span
-                    className="font-korean text-xs text-charcoal-300"
-                    style={{ fontFamily: 'var(--font-noto-kr)' }}
-                  >
-                    {categories.find((c) => c.id === activeCategory)?.korean}
-                  </span>
-                )}
-              </div>
-
-              {/* Two-column on large screens */}
-              <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-x-16">
-                <div>
-                  {filtered
-                    .filter((_, i) => i % 2 === 0)
-                    .map((item, i) => (
-                      <MenuItem key={item.id} item={item} index={i} isVisible={menuVisible} />
-                    ))}
-                </div>
-                <div>
-                  {filtered
-                    .filter((_, i) => i % 2 === 1)
-                    .map((item, i) => (
-                      <MenuItem key={item.id} item={item} index={i} isVisible={menuVisible} />
-                    ))}
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <ScatterGrid
+            scatterKey={activeCategory}
+            staggerMs={40}
+            scatterRange={25}
+            className="grid grid-cols-1 xl:grid-cols-2 xl:gap-x-16"
+          >
+            {filtered.map((item, i) => (
+              <MenuItem key={item.id} item={item} index={i} isVisible={menuVisible} />
+            ))}
+          </ScatterGrid>
         </div>
       </div>
 

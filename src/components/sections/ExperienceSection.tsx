@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
 import { ABOUT_IMAGES } from '@/lib/utils'
+import { ParallaxImageContainer } from '@/components/animations/ParallaxLayer'
 
 const features = [
   {
@@ -319,22 +320,20 @@ export function ExperienceSection() {
                 className="relative"
               >
                 {/* Main interior image */}
-                <div
+                <ParallaxImageContainer
+                  speed={-0.1}
                   className="relative overflow-hidden"
                   style={{ height: '560px', borderRadius: '2px' }}
                 >
-                  <motion.div style={{ y: imageY }} className="absolute inset-0 h-[120%] top-[-10%]">
-                    <Image
-                      src={ABOUT_IMAGES.interior.local || ABOUT_IMAGES.interior.fallback}
-                      alt="Gangnam Kitchen ambience"
-                      fill
-                      quality={85}
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal-800/20 via-transparent to-transparent" />
-                  </motion.div>
-                </div>
+                  <Image
+                    src={ABOUT_IMAGES.interior.local || ABOUT_IMAGES.interior.fallback}
+                    alt="Gangnam Kitchen ambience"
+                    fill quality={85}
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal-800/20 via-transparent to-transparent" />
+                </ParallaxImageContainer>
 
                 {/* Floating ambient label */}
                 <motion.div

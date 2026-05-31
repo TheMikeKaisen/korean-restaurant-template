@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
 import { GALLERY_IMAGES } from '@/lib/utils'
+import { ParallaxLayer } from '@/components/animations/ParallaxLayer'
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 
@@ -60,20 +61,22 @@ function GalleryCell({
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image */}
-      <motion.div
-        animate={{ scale: hovered ? 1.08 : 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0"
-      >
-        <Image
-          src={src}
-          alt={item.alt}
-          fill
-          quality={85}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover"
-        />
-      </motion.div>
+      <ParallaxLayer speed={-0.08} className="absolute inset-0 w-full h-full">
+        <motion.div
+          animate={{ scale: hovered ? 1.08 : 1 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={src}
+            alt={item.alt}
+            fill
+            quality={85}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+        </motion.div>
+      </ParallaxLayer>
 
       {/* Base gradient — always present, subtle */}
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent" />
