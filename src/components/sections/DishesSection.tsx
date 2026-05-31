@@ -49,6 +49,7 @@ function DishCard({
         style={{
           height: dish.size === 'large' ? '420px' : dish.size === 'wide' ? '300px' : '240px',
         }}
+        data-cursor="view"
       >
         <motion.div
           animate={{ scale: hovered ? 1.07 : 1 }}

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ChevronRight, ArrowDown } from 'lucide-react'
 import { useRestaurant } from '@/context/RestaurantContext'
+import { SplitText } from '@/components/animations/SplitText'
 
 // Korean decorative characters used as visual accents
 const hangulAccents = ['한', '국', '식', '당', '맛', '멋']
@@ -288,61 +289,64 @@ export function HeroSection() {
         </motion.div>
 
         {/* Hero Headline */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={loaded ? 'visible' : 'hidden'}
-          className="mb-6"
-        >
+        <div className="mb-6">
           {/* Line 1 */}
-          <div className="overflow-hidden mb-1">
-            <motion.h1
-              variants={lineVariants}
-              className="font-display font-light leading-[0.95] text-ivory-100"
-              style={{
-                fontFamily: 'var(--font-cormorant)',
-                fontWeight: 300,
-                fontSize: 'clamp(3.5rem, 9vw, 9rem)',
-                letterSpacing: '-0.03em',
-              }}
-            >
-              {hero.line1}
-            </motion.h1>
-          </div>
-
-          {/* Line 2 — with italic accent */}
-          <div className="overflow-hidden mb-1 flex items-baseline gap-4 flex-wrap">
-            <motion.span
-              variants={lineVariants}
-              className="font-display italic font-light leading-[0.95] text-ivory-100"
-              style={{
-                fontFamily: 'var(--font-cormorant)',
-                fontWeight: 300,
-                fontSize: 'clamp(3.5rem, 9vw, 9rem)',
-                letterSpacing: '-0.03em',
-              }}
-            >
-              {hero.line2}
-            </motion.span>
-          </div>
-
+          <SplitText
+            text={hero.line1}
+            as="h1"
+            type="chars"
+            delay={0.4}
+            stagger={0.035}
+            immediate
+            className="block font-display font-light leading-[0.95] text-ivory-100"
+            style={{
+              fontFamily: 'var(--font-cormorant)',
+              fontWeight: 300,
+              fontSize: 'clamp(3.5rem, 9vw, 9rem)',
+              letterSpacing: '-0.03em',
+            }}
+          />
+          {/* Line 2 */}
+          <SplitText
+            text={hero.line2}
+            as="h1"
+            type="chars"
+            delay={0.55}
+            stagger={0.03}
+            immediate
+            className="block font-display italic font-light leading-[0.95] text-ivory-100"
+            style={{
+              fontFamily: 'var(--font-cormorant)',
+              fontWeight: 300,
+              fontSize: 'clamp(3.5rem, 9vw, 9rem)',
+              letterSpacing: '-0.03em',
+            }}
+          />
           {/* Line 3 */}
-          <div className="overflow-hidden flex items-baseline gap-5 flex-wrap">
-            <motion.span
-              variants={lineVariants}
-              className="font-display font-light leading-[0.95] text-ivory-100"
+          <div className="flex items-baseline gap-5 flex-wrap mt-1">
+            <SplitText
+              text={hero.line3}
+              as="span"
+              type="chars"
+              delay={0.7}
+              stagger={0.035}
+              immediate
+              className="block font-display font-light leading-[0.95] text-ivory-100"
               style={{
                 fontFamily: 'var(--font-cormorant)',
                 fontWeight: 300,
                 fontSize: 'clamp(2.8rem, 7.5vw, 7.5rem)',
                 letterSpacing: '-0.03em',
               }}
-            >
-              {hero.line3}
-            </motion.span>
-            <motion.span
-              variants={lineVariants}
-              className="font-display italic font-500 leading-[0.95]"
+            />
+            <SplitText
+              text={hero.accentWord}
+              as="span"
+              type="chars"
+              delay={1}
+              stagger={0.04}
+              immediate
+              className="block font-display italic font-500 leading-[0.95]"
               style={{
                 fontFamily: 'var(--font-cormorant)',
                 fontWeight: 500,
@@ -353,11 +357,9 @@ export function HeroSection() {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
               }}
-            >
-              {hero.accentWord}
-            </motion.span>
+            />
           </div>
-        </motion.div>
+        </div>
 
         {/* Subheading */}
         <motion.p
